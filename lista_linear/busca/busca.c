@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int tamanhoLista;
+int *lista;
+
+int *iniciaLista(int tamanho);
+int busca(int x); // retorna a posição onde x foi encontrado, ou -1 caso x não esteja na lista
+void exibeLista();
+
+int main() {
+
+    int op = 0;
+    int tamanho = 0;
+    int x, posicao;
+    
+    while (op != 4) {
+        printf("Menu:\n");
+        printf("\t1 - Iniciar lista\n");
+        printf("\t2 - Exibir lista\n");
+        printf("\t3 - Buscar elemento\n");
+        printf("\t4 - Sair\n");
+        printf("sua escolha: ");
+        scanf("%d", &op);
+
+        if (op == 1) {
+            while (tamanho <= 0) {
+                printf("tamanho da lista: ");
+                scanf("%d", &tamanho);
+            }
+
+            tamanhoLista = tamanho;
+            tamanho = 0;
+            lista = iniciaLista(tamanhoLista + 1);
+        } else if (op == 2) {
+            exibeLista();
+        } else if (op == 3) {
+            printf("elemento a ser buscado: ");
+            scanf("%d", &x);
+
+            posicao = busca(x);
+
+            if (posicao == -1) {
+                printf("%d nao esta na lista\n", x);
+            } else {
+                printf("%d esta na posicao %d da lista\n", x, posicao);
+            }
+        } else if (op == 4) {
+            printf("Ate mais\n");
+        } else {
+            printf("opcao invalida\n");
+        }
+    }
+
+    return 0;
+}
+
+int *iniciaLista(int tamanho) {
+    int i;
+    int *novaLista = malloc(sizeof(int) * tamanho);
+
+    srand(time(NULL));
+
+    for (i = 0; i < tamanho; i++) {
+        novaLista[i] = rand() % 100;
+    }
+
+    return novaLista;
+}
+
+int busca(int x) {
+    int i = 0;
+    lista[tamanhoLista] = x;
+
+    while (lista[i] != x) {
+        i += 1;
+    }
+
+    if (i == tamanhoLista) {
+        return -1;
+    }
+    
+    return i;
+}
+
+void exibeLista() {
+    int i;
+
+    printf("Lista:\n");
+    for (i = 0; i < tamanhoLista; i++) {
+        printf("\tlista[%d] = %d\n", i, lista[i]);
+    }
+}
