@@ -167,6 +167,8 @@ int carrega_bd(Veiculo *bd[], string arq) {
             i++;
         }
         
+        myfile.close();
+        
         for (int j = i; j < 50; j++) {
             bd[j] = NULL;
         }
