@@ -11,8 +11,9 @@ typedef struct {
     No *raiz;
 } ArvoreBinaria;
 
-void inicia_arvore_binaria(ArvoreBinaria **a);
+ArvoreBinaria *inicia_arvore_binaria();
 void insere(ArvoreBinaria *a, int info);
+No *busca(ArvoreBinaria *a, int info);
 void pre_ordem(No *no);
 void em_ordem(No *no);
 void pos_ordem(No *no);
@@ -48,10 +49,12 @@ int main() {
 
 }
 
-void inicia_arvore_binaria(ArvoreBinaria **a) {
-    *a = malloc(sizeof(ArvoreBinaria));
+ArvoreBinaria *inicia_arvore_binaria() {
+    ArvoreBinaria *a = malloc(sizeof(ArvoreBinaria));
 
-    (*a)->raiz = NULL;
+    a->raiz = NULL;
+
+    return a;
 }
 
 void insere(ArvoreBinaria *a, int info) {
@@ -88,6 +91,24 @@ void insere(ArvoreBinaria *a, int info) {
             }
         }
     }
+}
+
+No *busca(ArvoreBinaria *a, int info) {
+    No *retorno = NULL;
+    No *p = a->raiz;
+
+    while (p != NULL) {
+        if (p > info) {
+            p = p->esq;
+        } else if (p < info) {
+            p = p->dir;
+        } else {
+            retorno = p;
+            break;
+        }
+    }
+
+    return retorno;
 }
 
 void pre_ordem(No *no) {
